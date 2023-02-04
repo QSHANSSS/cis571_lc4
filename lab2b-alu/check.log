@@ -1,0 +1,269 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Wolf <claire@symbioticeda.com>          |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.9+3855 (git sha1 54294957, clang 7.0.1 -fPIC -Os)
+
+
+-- Parsing `lc4_alu.v' using frontend `verilog' --
+
+1. Executing Verilog-2005 frontend: lc4_alu.v
+Parsing Verilog input from `lc4_alu.v' to AST representation.
+Warning: Literal has a width of 11 bit, but value requires 12 bit. (lc4_alu.v:46)
+Warning: Literal has a width of 7 bit, but value requires 8 bit. (lc4_alu.v:48)
+Warning: Literal has a width of 5 bit, but value requires 8 bit. (lc4_alu.v:50)
+Warning: Literal has a width of 10 bit, but value requires 11 bit. (lc4_alu.v:52)
+Warning: Literal has a width of 9 bit, but value requires 10 bit. (lc4_alu.v:54)
+Generating RTLIL representation for module `\lc4_alu'.
+Successfully finished Verilog frontend.
+
+-- Parsing `lc4_divider.v' using frontend `verilog' --
+
+2. Executing Verilog-2005 frontend: lc4_divider.v
+Parsing Verilog input from `lc4_divider.v' to AST representation.
+Generating RTLIL representation for module `\lc4_divider'.
+Generating RTLIL representation for module `\lc4_divider_one_iter'.
+Successfully finished Verilog frontend.
+
+-- Parsing `lc4_cla.v' using frontend `verilog' --
+
+3. Executing Verilog-2005 frontend: lc4_cla.v
+Parsing Verilog input from `lc4_cla.v' to AST representation.
+Generating RTLIL representation for module `\gp1'.
+Generating RTLIL representation for module `\gp4'.
+Generating RTLIL representation for module `\cla16'.
+Generating RTLIL representation for module `\gpn'.
+Successfully finished Verilog frontend.
+
+-- Running command `check; hierarchy -check; flatten; check -assert' --
+
+4. Executing CHECK pass (checking for obvious problems).
+Checking module gpn...
+Warning: multiple conflicting drivers for gpn.$or$lc4_cla.v:105$272_Y:
+    port Y[0] of cell $or$lc4_cla.v:105$272 ($or)
+    port Y[0] of cell $or$lc4_cla.v:105$268 ($or)
+    port Y[0] of cell $or$lc4_cla.v:105$264 ($or)
+    module input gin[3]
+Warning: multiple conflicting drivers for gpn.$and$lc4_cla.v:106$273_Y:
+    port Y[0] of cell $and$lc4_cla.v:106$273 ($and)
+    port Y[0] of cell $and$lc4_cla.v:106$269 ($and)
+    port Y[0] of cell $and$lc4_cla.v:106$265 ($and)
+    module input pin[3]
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:106$265 ($and)
+    wire $and$lc4_cla.v:106$273_Y
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:106$269 ($and)
+    wire $and$lc4_cla.v:106$273_Y
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:106$273 ($and)
+    wire $and$lc4_cla.v:106$273_Y
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:112$274 ($and)
+    cell $or$lc4_cla.v:112$275 ($or)
+    wire $and$lc4_cla.v:112$274_Y
+    wire $or$lc4_cla.v:112$275_Y
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:112$276 ($and)
+    cell $or$lc4_cla.v:112$277 ($or)
+    wire $and$lc4_cla.v:112$276_Y
+    wire $or$lc4_cla.v:112$277_Y
+Warning: found logic loop in module gpn:
+    cell $or$lc4_cla.v:105$264 ($or)
+    wire $or$lc4_cla.v:105$272_Y
+Warning: found logic loop in module gpn:
+    cell $or$lc4_cla.v:105$268 ($or)
+    wire $or$lc4_cla.v:105$272_Y
+Warning: found logic loop in module gpn:
+    cell $or$lc4_cla.v:105$272 ($or)
+    wire $or$lc4_cla.v:105$272_Y
+Checking module cla16...
+Warning: Wire cla16.\g_74 is used but has no driver.
+Warning: Wire cla16.\g_118 is used but has no driver.
+Warning: Wire cla16.\g_30 is used but has no driver.
+Warning: Wire cla16.\p_118 is used but has no driver.
+Warning: Wire cla16.\p_74 is used but has no driver.
+Warning: Wire cla16.\p_30 is used but has no driver.
+Warning: Wire cla16.\c [15] is used but has no driver.
+Warning: Wire cla16.\c [14] is used but has no driver.
+Warning: Wire cla16.\c [13] is used but has no driver.
+Warning: Wire cla16.\c [11] is used but has no driver.
+Warning: Wire cla16.\c [10] is used but has no driver.
+Warning: Wire cla16.\c [9] is used but has no driver.
+Warning: Wire cla16.\c [7] is used but has no driver.
+Warning: Wire cla16.\c [6] is used but has no driver.
+Warning: Wire cla16.\c [5] is used but has no driver.
+Warning: Wire cla16.\c [3] is used but has no driver.
+Warning: Wire cla16.\c [2] is used but has no driver.
+Warning: Wire cla16.\c [1] is used but has no driver.
+Checking module gp4...
+Checking module gp1...
+Checking module lc4_divider_one_iter...
+Checking module lc4_divider...
+Warning: Wire lc4_divider.\temp16_quotient [15] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [14] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [13] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [12] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [11] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [10] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [9] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [8] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [7] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [6] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [5] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [4] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [3] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [2] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [1] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_quotient [0] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [15] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [14] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [13] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [12] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [11] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [10] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [9] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [8] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [7] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [6] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [5] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [4] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [3] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [2] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [1] is used but has no driver.
+Warning: Wire lc4_divider.\temp16_remainder [0] is used but has no driver.
+Checking module lc4_alu...
+Warning: Wire lc4_alu.\add_cla [15] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [14] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [13] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [12] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [11] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [10] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [9] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [8] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [7] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [6] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [5] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [4] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [3] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [2] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [1] is used but has no driver.
+Warning: Wire lc4_alu.\add_cla [0] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [15] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [14] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [13] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [12] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [11] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [10] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [9] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [8] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [7] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [6] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [5] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [4] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [3] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [2] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [1] is used but has no driver.
+Warning: Wire lc4_alu.\quotient [0] is used but has no driver.
+Found and reported 92 problems.
+
+5. Executing HIERARCHY pass (managing design hierarchy).
+Mapping positional arguments of cell cla16.m4 (gp4).
+Mapping positional arguments of cell cla16.m3 (gp4).
+Mapping positional arguments of cell cla16.m2 (gp4).
+Mapping positional arguments of cell cla16.m1 (gp4).
+Mapping positional arguments of cell cla16.u16 (gp1).
+Mapping positional arguments of cell cla16.u15 (gp1).
+Mapping positional arguments of cell cla16.u14 (gp1).
+Mapping positional arguments of cell cla16.u13 (gp1).
+Mapping positional arguments of cell cla16.u12 (gp1).
+Mapping positional arguments of cell cla16.u11 (gp1).
+Mapping positional arguments of cell cla16.u10 (gp1).
+Mapping positional arguments of cell cla16.u9 (gp1).
+Mapping positional arguments of cell cla16.u8 (gp1).
+Mapping positional arguments of cell cla16.u7 (gp1).
+Mapping positional arguments of cell cla16.u6 (gp1).
+Mapping positional arguments of cell cla16.u5 (gp1).
+Mapping positional arguments of cell cla16.u4 (gp1).
+Mapping positional arguments of cell cla16.u3 (gp1).
+Mapping positional arguments of cell cla16.u2 (gp1).
+Mapping positional arguments of cell cla16.u1 (gp1).
+Mapping positional arguments of cell lc4_divider.m15 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m14 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m13 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m12 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m11 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m10 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m9 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m8 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m7 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m6 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m5 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m4 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m3 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m2 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m1 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_divider.m0 (lc4_divider_one_iter).
+Mapping positional arguments of cell lc4_alu.m2 (cla16).
+Mapping positional arguments of cell lc4_alu.m1 (lc4_divider).
+
+6. Executing FLATTEN pass (flatten design).
+<suppressed ~38 debug messages>
+
+7. Executing CHECK pass (checking for obvious problems).
+Checking module gpn...
+Warning: multiple conflicting drivers for gpn.$or$lc4_cla.v:105$272_Y:
+    port Y[0] of cell $or$lc4_cla.v:105$272 ($or)
+    port Y[0] of cell $or$lc4_cla.v:105$268 ($or)
+    port Y[0] of cell $or$lc4_cla.v:105$264 ($or)
+    module input gin[3]
+Warning: multiple conflicting drivers for gpn.$and$lc4_cla.v:106$273_Y:
+    port Y[0] of cell $and$lc4_cla.v:106$273 ($and)
+    port Y[0] of cell $and$lc4_cla.v:106$269 ($and)
+    port Y[0] of cell $and$lc4_cla.v:106$265 ($and)
+    module input pin[3]
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:106$265 ($and)
+    wire $and$lc4_cla.v:106$273_Y
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:106$269 ($and)
+    wire $and$lc4_cla.v:106$273_Y
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:106$273 ($and)
+    wire $and$lc4_cla.v:106$273_Y
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:112$274 ($and)
+    cell $or$lc4_cla.v:112$275 ($or)
+    wire $and$lc4_cla.v:112$274_Y
+    wire $or$lc4_cla.v:112$275_Y
+Warning: found logic loop in module gpn:
+    cell $and$lc4_cla.v:112$276 ($and)
+    cell $or$lc4_cla.v:112$277 ($or)
+    wire $and$lc4_cla.v:112$276_Y
+    wire $or$lc4_cla.v:112$277_Y
+Warning: found logic loop in module gpn:
+    cell $or$lc4_cla.v:105$264 ($or)
+    wire $or$lc4_cla.v:105$272_Y
+Warning: found logic loop in module gpn:
+    cell $or$lc4_cla.v:105$268 ($or)
+    wire $or$lc4_cla.v:105$272_Y
+Warning: found logic loop in module gpn:
+    cell $or$lc4_cla.v:105$272 ($or)
+    wire $or$lc4_cla.v:105$272_Y
