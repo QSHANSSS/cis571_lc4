@@ -1,5 +1,7 @@
-/* TODO: INSERT NAME AND PENNKEY HERE */
 
+/* TODO: INSERT NAME AND PENNKEY HERE */
+//Shuhan Qian: qiansh
+//Lihong Zhao: lihongzh
 `timescale 1ns / 1ps
 `default_nettype none
 
@@ -92,26 +94,23 @@ module gpn
    output wire gout, pout,
    output wire [N-2:0] cout);
  parameter N = 4;
-   wire [N:0] pp;
-      wire  temp_gout;
-      wire temp_pout;
-      wire [N-2:0] temp_cout;
+      //wire pp;
+      wire  temp_gout[N-1:0];
+      wire temp_pout[N-1:0];
+      wire [N-1:0] temp_cout;
       genvar i;
-      assign pp[N]=1'b1;
-      assign temp_gout=gin[N-1];
-      assign temp_pout=pin[N-1];
-      for(i=N-1;i>0;i=i-1) begin
-          assign pp[i]=pp[i+1] & pin[i];
-          assign temp_gout=temp_gout |   pp[i] &gin[i-1] ;
-          assign temp_pout=temp_pout & pin[i-1];
+      //assign pp=pin[N-1];
+      assign temp_gout[0]=gin[0];
+      assign temp_pout[0]=pin[0];
+      assign temp_cout[0]=cin;
+      for(i=1;i<N;i=i+1) begin
+          //assign pp=pp & pin[i-1];
+          assign temp_pout[i]=temp_pout[i-1] & pin[i];
+          assign temp_gout[i]=gin[i] | (temp_gout[i-1]&pin[i])  ;
+          assign temp_cout[i]=gin[i-1] | (pin[i-1]&temp_cout[i-1]); //CN=GN-1|PN-1&CN-1
       end
-
-      genvar j;
-      assign temp_cout[0]=gin[0] | pin[0]*cin;
-      for(j=1;j<=N-2;j=j+1) begin
-          assign temp_cout[j]=gin[j] | pin[j]&temp_cout[j]; //CN=GN-1|PN-1&CN-1
-      end
-    assign gout=temp_gout;
-    assign pout=temp_pout;
-    assign cout=temp_cout;
+    
+    assign gout=temp_gout[N-1];
+    assign pout=temp_pout[N-1];
+    assign cout=temp_cout[N-1:1];
 endmodule
