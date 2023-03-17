@@ -72,7 +72,7 @@ module lc4_processor
     wire [15:0] rs,rd,rt,out_alu,regfile_wr,temp1_regfile_wr,temp2_regfile_wr,temp3_regfile_wr;
     wire r1re,r2re,regfile_we,nzp_we,select_pc_plus_one,is_load,is_store,is_branch,is_control_insn;
    
-   lc4_decoder insn_decoder(i_cur_insn,rs_sel, r1re,rt_sel,r2re,rd_sel,
+   lc4_decoder insn_decoder(i_cur_insn, rs_sel, r1re,rt_sel,r2re,rd_sel,
    regfile_we,nzp_we,select_pc_plus_one,is_load,is_store,is_branch,is_control_insn);
   
    cla16 c0(pc,16'b0,1'b1,pc_plus_one);
@@ -93,7 +93,6 @@ module lc4_processor
    assign o_dmem_addr=(is_load | is_store ) ? out_alu : 16'b0;
    assign o_dmem_towrite=(is_store) ? rt : 16'b0;
    assign o_dmem_we=(is_store) ? 1'b1 : 1'b0;
-   // note it still no error
    
    // assign nzp_test = ((i_cur_insn[11]==1'b1)&(nzp_reg_next[2]==1'b1))|((i_cur_insn[10]==1'b1)&(nzp_reg_next[1]==1'b1))|((i_cur_insn[9]==1'b1)&(nzp_reg_next[0]==1'b1));
 
@@ -107,7 +106,7 @@ module lc4_processor
    assign brnzp_is_jump=( (i_cur_insn[15:9]==7'd7) & (last_nzp[2] | last_nzp[1] | last_nzp[0])  );
    assign br_is_jump=brp_is_jump | brz_is_jump | brzp_is_jump | brn_is_jump | brnp_is_jump | brnz_is_jump | brnzp_is_jump;
 
-   // 没看懂
+
    assign next_pc=(is_control_insn |  (is_branch & br_is_jump)  )? out_alu : pc_plus_one;
    assign o_cur_pc=pc;
  
