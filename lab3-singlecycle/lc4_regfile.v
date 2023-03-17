@@ -1,3 +1,4 @@
+
 /* TODO: Names of all group members
  * TODO: PennKeys of all group members
  *
@@ -23,11 +24,10 @@ module lc4_regfile #(parameter n = 16)
     input  wire [n-1:0] i_wdata,   // data to write
     input  wire         i_rd_we    // write enable
     );
-    
     wire [7:0] rd_select;
     wire [n-1:0] r0v, r1v, r2v, r3v,r4v, r5v, r6v, r7v;
 
-    decoder_3_to_8 m0(i_rd, rd_select);
+    decoder_3_to_8 m0(i_rd,rd_select);
     Nbit_reg #(n) r0 (i_wdata , r0v, clk,  rd_select[0] & i_rd_we, gwe,rst);
     Nbit_reg #(n) r1 (i_wdata , r1v, clk,  rd_select[1] & i_rd_we, gwe,rst);
     Nbit_reg #(n) r2 (i_wdata,  r2v, clk,  rd_select[2] & i_rd_we, gwe,rst);
@@ -36,15 +36,15 @@ module lc4_regfile #(parameter n = 16)
     Nbit_reg #(n) r5 (i_wdata,  r5v, clk,  rd_select[5] & i_rd_we, gwe,rst);
     Nbit_reg #(n) r6 (i_wdata,  r6v, clk,  rd_select[6] & i_rd_we, gwe,rst);
     Nbit_reg #(n) r7 (i_wdata,  r7v,  clk, rd_select[7] & i_rd_we, gwe,rst);
-    MUX81 #(n) m1(r0v, r1v, r2v, r3v,r4v, r5v, r6v, r7v,i_rs,o_rs_data);
-    MUX81 #(n) m2(r0v, r1v, r2v, r3v,r4v, r5v, r6v, r7v,i_rt,o_rt_data);
+    MUX81  m1(r0v, r1v, r2v, r3v,r4v, r5v, r6v, r7v,i_rs,o_rs_data);
+    MUX81  m2(r0v, r1v, r2v, r3v,r4v, r5v, r6v, r7v,i_rt,o_rt_data);
     
 endmodule
 
 
 module decoder_3_to_8 (binary_in, onehot_out);
-    input [2:0] binary_in; 
-    output [7:0] onehot_out;
+    input wire [2:0] binary_in; 
+    output wire [7:0] onehot_out;
         assign onehot_out[0] = (binary_in == 3'd0);
         assign onehot_out[1] = (binary_in == 3'd1);
         assign onehot_out[2] = (binary_in == 3'd2);
@@ -57,9 +57,9 @@ endmodule
 
 module MUX81
 (
-	input [15:0]	a,b,c,d,e,f,g,h,
-	input [2:0]	sel,
-	output  [15:0]	out
+	input wire [15:0]	a,b,c,d,e,f,g,h,
+	input wire [2:0]	sel,
+	output  wire [15:0]	out
 );
     wire [15:0] out0,out1,out2,out3,out4,out5,out6,out7;
 

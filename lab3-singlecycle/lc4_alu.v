@@ -98,7 +98,7 @@ module lc4_alu(input  wire [15:0] i_insn,
       assign sll1=((i_insn[15:12]==4'b1010) & (i_insn[5:4]==2'b00) )? (i_r1data << i_insn[3:0] ): 16'b0 ;
       assign sra1=((i_insn[15:12]==4'b1010) & (i_insn[5:4]==2'b01) )? $signed( ( $signed(i_r1data) >>>i_insn[3:0] )) : 16'b0 ;
       assign srl1=((i_insn[15:12]==4'b1010) & (i_insn[5:4]==2'b10) )? (i_r1data >> i_insn[3:0]) : 16'b0 ;
-      assign mod1=((i_insn[15:12]==4'b1010) & (i_insn[5:4]==2'b11) )? (i_r1data % i_r2data) : 16'b0 ;
+      assign mod1=((i_insn[15:12]==4'b1010) & (i_insn[5:4]==2'b11) )? (temp_remainder) : 16'b0 ;
 
       assign hiconst1=((i_insn[15:12]==4'b1101)  )? (i_r1data & 8'hff | i_insn[7:0] << 8) : 16'b0 ;
       

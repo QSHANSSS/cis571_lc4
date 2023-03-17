@@ -1,4 +1,3 @@
-
 /* TODO: Lihong Zhao: lihzhao, Shuhan Qian: qiansh  (Name:Pennkey) */
 
 `timescale 1ns / 1ps
