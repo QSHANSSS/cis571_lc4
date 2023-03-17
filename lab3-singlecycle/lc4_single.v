@@ -1,4 +1,6 @@
-/* TODO: name and PennKeys of all group members here
+
+/* Group Name: Shuhan Qian Pennkey:qiansh   
+   Group Name: Lihong Zhao Pennkey:lihzhao 
  *
  * lc4_single.v
  * Implements a single-cycle data path
@@ -58,7 +60,7 @@ module lc4_processor
    wire [15:0]   pc;      // Current program counter (read out from pc_reg)
    wire [15:0]   next_pc; // Next program counter (you compute this and feed it into next_pc)
    wire [15:0] pc_plus_one;
-   wire [2:0] nzp_data, last_nzp, nzp_temp;
+   wire [2:0] nzp_data, last_nzp,nzp_temp;
    // Program counter register, starts at 8200h at bootup
    Nbit_reg #(16, 16'h8200) pc_reg (.in(next_pc), .out(pc), .clk(clk), .we(1'b1), .gwe(gwe), .rst(rst));
    Nbit_reg #(3, 3'b010) nzp_reg (.in(nzp_data), .out(last_nzp), .clk(clk), .we(nzp_we), .gwe(gwe), .rst(rst));
@@ -72,47 +74,31 @@ module lc4_processor
     wire [15:0] rs,rd,rt,out_alu,regfile_wr,temp1_regfile_wr,temp2_regfile_wr,temp3_regfile_wr;
     wire r1re,r2re,regfile_we,nzp_we,select_pc_plus_one,is_load,is_store,is_branch,is_control_insn;
    
-   lc4_decoder insn_decoder(i_cur_insn, rs_sel, r1re,rt_sel,r2re,rd_sel,
+   lc4_decoder insn_decoder(i_cur_insn,rs_sel, r1re,rt_sel,r2re,rd_sel,
    regfile_we,nzp_we,select_pc_plus_one,is_load,is_store,is_branch,is_control_insn);
   
    cla16 c0(pc,16'b0,1'b1,pc_plus_one);
-  
+   
    lc4_regfile m0(clk,gwe,rst,rs_sel,rs,rt_sel,rt,rd_sel,regfile_wr,regfile_we);
   
    lc4_alu m1(i_cur_insn,pc,(r1re)?rs:16'b0,(r2re)?rt:16'b0,out_alu);
 
-   assign temp1_regfile_wr=(is_load) ? i_cur_dmem_data : 16'b0;
-   assign temp2_regfile_wr=(select_pc_plus_one) ? pc_plus_one : 16'b0;
-   assign temp3_regfile_wr=( ( is_load | select_pc_plus_one )==1'b0 ) ? out_alu : 16'b0;
+   assign regfile_wr=(is_load)? i_cur_dmem_data : ((select_pc_plus_one)?pc_plus_one : out_alu );
+  
+   assign o_dmem_addr=(is_load | is_store )?out_alu : 16'b0;
+   assign o_dmem_towrite=(is_store)? rt : 16'b0;
+   assign o_dmem_we=(is_store);
 
-   assign regfile_wr=temp1_regfile_wr | temp2_regfile_wr | temp3_regfile_wr;
    
-   //assign (is_load) ? i_cur_dmem_data : ((select_pc_plus_one) ? pc_plus_one : out_alu )
-
-   // Write/Read need address
-   assign o_dmem_addr=(is_load | is_store ) ? out_alu : 16'b0;
-   assign o_dmem_towrite=(is_store) ? rt : 16'b0;
-   assign o_dmem_we=(is_store) ? 1'b1 : 1'b0;
+   wire br_is_jump;
+   assign br_is_jump=( (i_cur_insn[15:12]==4'b0000) & (last_nzp[2]&i_cur_insn[11] | (last_nzp[1]&i_cur_insn[10]) | last_nzp[0]&i_cur_insn[9]) );
    
-   // assign nzp_test = ((i_cur_insn[11]==1'b1)&(nzp_reg_next[2]==1'b1))|((i_cur_insn[10]==1'b1)&(nzp_reg_next[1]==1'b1))|((i_cur_insn[9]==1'b1)&(nzp_reg_next[0]==1'b1));
-
-   wire br_is_jump, brp_is_jump, brz_is_jump, brzp_is_jump, brn_is_jump, brnp_is_jump, brnz_is_jump, brnzp_is_jump;
-   assign brp_is_jump=( (i_cur_insn[15:9]==7'd1) & (last_nzp[0]));
-   assign brz_is_jump=( (i_cur_insn[15:9]==7'd2) & (last_nzp[1]));
-   assign brzp_is_jump=( (i_cur_insn[15:9]==7'd3) & (last_nzp[0] | last_nzp[1]));
-   assign brn_is_jump=( (i_cur_insn[15:9]==7'd4) & (last_nzp[2]));
-   assign brnp_is_jump=( (i_cur_insn[15:9]==7'd5) & (last_nzp[2] | last_nzp[0]) );
-   assign brnz_is_jump=( (i_cur_insn[15:9]==7'd6) & (last_nzp[2] | last_nzp[1]) );
-   assign brnzp_is_jump=( (i_cur_insn[15:9]==7'd7) & (last_nzp[2] | last_nzp[1] | last_nzp[0])  );
-   assign br_is_jump=brp_is_jump | brz_is_jump | brzp_is_jump | brn_is_jump | brnp_is_jump | brnz_is_jump | brnzp_is_jump;
-
-
    assign next_pc=(is_control_insn |  (is_branch & br_is_jump)  )? out_alu : pc_plus_one;
    assign o_cur_pc=pc;
  
-   assign nzp_data[2]=(regfile_wr[15]==1'b1) ; //n
+   assign nzp_data[2]= (regfile_wr[15]==1'b1) ; //n
    assign nzp_data[1]=(regfile_wr)? 1'b0 : 1'b1;     //z
-   assign nzp_data[0]=( (regfile_wr[15]==0) & (regfile_wr!=0))? 1'b1 : 1'b0;  //p
+   assign nzp_data[0]=( (regfile_wr[15]==0) & (regfile_wr!=0));//p
 
    assign test_cur_pc=pc;
    assign test_cur_insn=i_cur_insn;
@@ -125,8 +111,8 @@ module lc4_processor
    assign test_dmem_we=o_dmem_we; 
    assign test_dmem_addr=o_dmem_addr; 
    
-   wire [15:0] dmem_in,dmem_out;
-   assign dmem_in=(is_store)?rt: 16'b0;
+   wire[15:0] dmem_out;//,dmem_in;
+   //assign dmem_in=(is_store)?rt: 16'b0;
    assign dmem_out=(is_load)?i_cur_dmem_data: 16'b0;
    assign test_dmem_data= o_dmem_towrite | dmem_out  ;
      
