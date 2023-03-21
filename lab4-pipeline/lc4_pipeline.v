@@ -1,4 +1,3 @@
-
 /* TODO: name and PennKeys of all group members here */
 
 `timescale 1ns / 1ps
@@ -102,10 +101,15 @@ module lc4_processor
    Nbit_reg #(1, 1'b0) rt_reg_x_re (.in(r2re_d_reg), .out(r2re_x_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
 
    Nbit_reg #(1, 1'b0) select_pc_plus_one_reg_d (.in( select_pc_plus_one), .out(select_pc_plus_one_d_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
-   //Nbit_reg #(1, 1'b0) select_pc_plus_one_reg_x (.in( select_pc_plus_one_d_reg), .out(select_pc_plus_one_x_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
-   //Nbit_reg #(1, 1'b0) select_pc_plus_one_reg_m (.in( select_pc_plus_one_x_reg), .out(select_pc_plus_one_m_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
-   //Nbit_reg #(1, 1'b0) select_pc_plus_one_reg_w (.in( select_pc_plus_one_m_reg), .out(select_pc_plus_one_w_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
+   Nbit_reg #(1, 1'b0) select_pc_plus_one_reg_x (.in( select_pc_plus_one_d_reg), .out(select_pc_plus_one_x_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
+   Nbit_reg #(1, 1'b0) select_pc_plus_one_reg_m (.in( select_pc_plus_one_x_reg), .out(select_pc_plus_one_m_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
+   Nbit_reg #(1, 1'b0) select_pc_plus_one_reg_w (.in( select_pc_plus_one_m_reg), .out(select_pc_plus_one_w_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
+   
    Nbit_reg #(1, 1'b0) is_load_reg_d (.in( is_load), .out(is_load_d_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
+   Nbit_reg #(1, 1'b0) is_load_reg_x (.in( is_load_d_reg), .out(is_load_x_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
+   Nbit_reg #(1, 1'b0) is_load_reg_m (.in( is_load_x_reg), .out(is_load_m_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
+   Nbit_reg #(1, 1'b0) is_load_reg_w (.in( is_load_m_reg), .out(is_load_w_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
+   
    Nbit_reg #(1, 1'b0) is_store_reg_d (.in( is_store), .out(is_store_d_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
    Nbit_reg #(1, 1'b0) is_branch_reg_d (.in( is_branch), .out(is_branch_d_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
    Nbit_reg #(1, 1'b0) is_control_insn_reg_d (.in( is_control_insn), .out(is_control_insn_d_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
@@ -131,39 +135,21 @@ module lc4_processor
    //Nbit_reg #(16, 16'b0) regfile_wr_reg_w (.in(regfile_wr_m), .out(regfile_wr_w), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
   
   /*...........bypass..............*/
-   assign rs_wd_d=(rd_w == rs_sel_d_reg && insn_w[15:12] != 4'b0010)? out_alu_w_reg: rs;//wd bypass,(on d stage)
-   assign rt_wd_d=(rd_w == rt_sel_d_reg && insn_w[15:12] != 4'b0010)? out_alu_w_reg: rt;
 
    wire [15:0] rs_wd_x, rt_wd_x, rs_content_d,rt_content_d,rs_wd_d,rt_wd_d;
    Nbit_reg #(16, 16'b0) rs_reg_x_data (.in(rs_wd_d), .out(rs_wd_x), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
    Nbit_reg #(16, 16'b0) rt_reg_x_data (.in(rt_wd_d), .out(rt_wd_x), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
-
+   
    wire [15:0] rs_alu,rt_alu;
-   wire [15:0] rs_content_wx,rt_content_wx;
-   assign rs_content_wx = (rd_w==rs_sel_x_reg && (rd_m!=rs_sel_x_reg | insn_m[15:12] ==4'b0010) )? out_alu_w_reg:16'b0;//wx bypass
-   assign rt_content_wx = (rd_w==rt_sel_x_reg && (rd_m!=rt_sel_x_reg | insn_m[15:12] ==4'b0010) )? out_alu_w_reg:16'b0;
-
-   wire [15:0] rs_content_mx,rt_content_mx;
-   assign rs_content_mx = (rd_m==rs_sel_x_reg )? out_alu_m_reg:16'b0;//mx bypass (on x stage)
-   assign rt_content_mx = (rd_m==rt_sel_x_reg )? out_alu_m_reg:16'b0;
-
    wire [15:0] rs_content_wm,rt_content_wm;
    assign rs_content_wm = (rd_w==rs_sel_m_reg)? out_alu_w_reg:16'b0;//wm bypass
    assign rt_content_wm = (rd_w==rt_sel_m_reg)? out_alu_w_reg:16'b0;
 
-   // wire [1:0] bypass_sel; 
-   // wire [15:0]rs_bypass,rt_bypass;
-   // assign bypass_sel=( (rd_m==rs_sel_x_reg) | (rd_m==rt_sel_x_reg) )? 2'd2 : ( ( (rd_w==rs_sel_x_reg) | (rd_w==rt_sel_x_reg)  )? 2'd1 : 2'b0 ) ;
-   // assign rs_bypass=(bypass_sel == 2)? out_alu_m_reg : ((bypass_sel == 1)? out_alu_w_reg : rs_content_x);
-   // assign rt_bypass=(bypass_sel == 2)? out_alu_m_reg : ((bypass_sel == 1)? out_alu_w_reg : rt_content_x);
-  
-   wire [15:0]rs_no_xbypass,rt_no_xbypass;
-   // assign rs_no_xbypass=(rd_m!=rs_sel_x_reg && rd_w!=rs_sel_x_reg  )?rs_wd_x : 16'b0;
-   // assign rt_no_xbypass=(rd_m!=rt_sel_x_reg && rd_w!=rt_sel_x_reg )?rt_wd_x : 16'b0;
-
-   assign rs_alu= (rd_m==rs_sel_x_reg && insn_m[15:12] !=4'b0010) ? rs_content_mx : ( rd_w==rs_sel_x_reg && insn_w[15:12] !=4'b0010 )?  rs_content_wx : rs_wd_x ;
-   assign rt_alu= (rd_m==rt_sel_x_reg && insn_m[15:12] !=4'b0010) ? rt_content_mx : ( rd_w==rt_sel_x_reg && insn_w[15:12] !=4'b0010 )?  rt_content_wx  : rt_wd_x;
-
+   assign rs_alu= (rd_m==rs_sel_x_reg && regfile_we_m_reg && r1re_x_reg) ? out_alu_m_reg : ( rd_w==rs_sel_x_reg && regfile_we_w_reg )?  out_alu_w_reg : rs_wd_x ;
+   assign rt_alu= (rd_m==rt_sel_x_reg && regfile_we_m_reg && r2re_x_reg) ? out_alu_m_reg : ( rd_w==rt_sel_x_reg && regfile_we_w_reg )?  out_alu_w_reg  : rt_wd_x;
+   // mx or wx bypass
+   assign rs_wd_d=(rd_w == rs_sel_d_reg && regfile_we_w_reg && r1re_d_reg)? out_alu_w_reg: rs;//wd bypass,(on d stage)
+   assign rt_wd_d=(rd_w == rt_sel_d_reg && regfile_we_w_reg && r2re_d_reg)? out_alu_w_reg: rt;
   /*..............bypass_end...................*/
 
 
@@ -176,7 +162,7 @@ module lc4_processor
    wire [15:0] dmem_data_d_reg;
    Nbit_reg #(16, 16'b0) dmem_data_reg_d (.in(i_cur_dmem_data), .out(dmem_data_d_reg), .clk(clk), .we(pipeline_reg_enable), .gwe(gwe), .rst(rst));
 
-   assign regfile_wr=(is_load_d_reg)? dmem_data_d_reg : ((select_pc_plus_one_d_reg)?pc_plus_one : out_alu_w_reg ); // in w stage?
+   assign regfile_wr=(is_load_x_reg)? dmem_data_d_reg : ((select_pc_plus_one_w_reg)?pc_plus_one : out_alu_w_reg ); // in w stage?
    assign o_dmem_addr=(is_load_d_reg | is_store_d_reg )?out_alu_w_reg : 16'b0;
    assign o_dmem_towrite=(is_store_d_reg)? rt_alu : 16'b0;
    assign o_dmem_we=(is_store_d_reg);
