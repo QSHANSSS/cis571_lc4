@@ -48,60 +48,44 @@ module lc4_processor(input wire         clk,             // main clock
 
    /***  YOUR CODE HERE ***/
 
+   wire [1:0] stall_A;
+   wire [1:0] stall_B;
+/**********************************************FETCH STAGE**********************************************/   
+
+   // Dispatch (Fetch/Decode)
+   wire [15:0] F_pc_reg_out;
+   wire [15:0] F_pc_A = (stall_B == 2'h1) ? D_IR_pc_B : F_pc_reg_out; // if B is stalled 
+   wire [15:0] F_pc_B = F_pc_A + 16'h1; //PC of B will always be PC of A+1
+   wire [15:0] F_next_pc = F_pc_A + 16'h2; //increment pc by 1 if only B stalls, else increment by 2
+
+   wire F_we = 1'b1;
+
+   Nbit_reg #(16, 16'h8200) pc_reg (.in(F_next_pc), .out(F_pc_reg_out), .clk(clk), .we(F_we), .gwe(gwe), .rst(rst)); //pc register
+
+   wire [15:0] F_insn_A =  i_cur_insn_A;
+   wire [15:0] F_insn_B =  i_cur_insn_B;
+
+   assign o_cur_pc = F_pc_A;
+
+/****Fetch-Decode Intermediate Register****/
+
+    //FD_reg A output wires
+    wire [15:0] D_IR_pc_A;
+    wire [15:0] D_IR_insn_A;
+    wire [1:0] D_IR_stall_A;
+    //FD_reg A registers
+    Nbit_reg #(16, 16'h0) FD_pc_A (.in(F_pc_A), .out(D_IR_pc_A), .clk(clk), .we(F_we), .gwe(gwe), .rst(rst));
+    Nbit_reg #(16, 16'h0) FD_insn_A (.in(F_insn_A), .out(D_IR_insn_A), .clk(clk), .we(F_we), .gwe(gwe), .rst(rst));
+    Nbit_reg #(2, 2'h2) FD_stall_A (.in(2'h0), .out(D_IR_stall_A), .clk(clk), .we(F_we), .gwe(gwe), .rst(rst));
 
 
+    //FD_reg B output wires
+    wire [15:0] D_IR_pc_B;
+    wire [15:0] D_IR_insn_B;
+    wire [1:0] D_IR_stall_B;
+    //FD_reg B registers
+    Nbit_reg #(16, 16'h0) FD_pc_B (.in(F_pc_B), .out(D_IR_pc_B), .clk(clk), .we(F_we), .gwe(gwe), .rst(rst));
+    Nbit_reg #(16, 16'h0) FD_insn_B (.in(F_insn_B), .out(D_IR_insn_B), .clk(clk), .we(F_we), .gwe(gwe), .rst(rst));
+    Nbit_reg #(2, 2'h2) FD_stall_B (.in(2'h0), .out(D_IR_stall_B), .clk(clk), .we(F_we), .gwe(gwe), .rst(rst));
 
 
-
-   /* Add $display(...) calls in the always block below to
-    * print out debug information at the end of every cycle.
-    *
-    * You may also use if statements inside the always block
-    * to conditionally print out information.
-    */
-   always @(posedge gwe) begin
-      // $display("%d %h %h %h %h %h", $time, f_pc, d_pc, e_pc, m_pc, test_cur_pc);
-      // if (o_dmem_we)
-      //   $display("%d STORE %h <= %h", $time, o_dmem_addr, o_dmem_towrite);
-
-      // Start each $display() format string with a %d argument for time
-      // it will make the output easier to read.  Use %b, %h, and %d
-      // for binary, hex, and decimal output of additional variables.
-      // You do not need to add a \n at the end of your format string.
-      // $display("%d ...", $time);
-
-      // Try adding a $display() call that prints out the PCs of
-      // each pipeline stage in hex.  Then you can easily look up the
-      // instructions in the .asm files in test_data.
-
-      // basic if syntax:
-      // if (cond) begin
-      //    ...;
-      //    ...;
-      // end
-
-      // Set a breakpoint on the empty $display() below
-      // to step through your pipeline cycle-by-cycle.
-      // You'll need to rewind the simulation to start
-      // stepping from the beginning.
-
-      // You can also simulate for XXX ns, then set the
-      // breakpoint to start stepping midway through the
-      // testbench.  Use the $time printouts you added above (!)
-      // to figure out when your problem instruction first
-      // enters the fetch stage.  Rewind your simulation,
-      // run it for that many nanoseconds, then set
-      // the breakpoint.
-
-      // In the objects view, you can change the values to
-      // hexadecimal by selecting all signals (Ctrl-A),
-      // then right-click, and select Radix->Hexadecimal.
-
-      // To see the values of wires within a module, select
-      // the module in the hierarchy in the "Scopes" pane.
-      // The Objects pane will update to display the wires
-      // in that module.
-
-      //$display();
-   end
-endmodule
