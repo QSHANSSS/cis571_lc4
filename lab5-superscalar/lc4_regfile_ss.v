@@ -42,42 +42,77 @@ module lc4_regfile_ss #(parameter REG_WIDTH = 16)
    
    parameter REG_NUM=8;
    /*** TODO: Your Code Here ***/
-   wire [REG_WIDTH-1:0] rd_write_data[REG_NUM];
+   //wire [REG_WIDTH-1:0] rd_write_data[REG_NUM];
    //wire [7:0] rd_select_A.rd_select_B;
    wire [REG_WIDTH-1:0] r0v, r1v, r2v, r3v,r4v, r5v, r6v, r7v,o_rs_data_A_temp,o_rs_data_B_temp,o_rt_data_A_temp,o_rt_data_B_temp;
-   wire i_rd_we[REG_NUM] ;
+   //wire i_rd_we[REG_NUM] ;
+
+   wire [REG_WIDTH-1:0] rd_write_data_0;
+   wire [REG_WIDTH-1:0] rd_write_data_1;
+   wire [REG_WIDTH-1:0] rd_write_data_2;
+   wire [REG_WIDTH-1:0] rd_write_data_3;
+   wire [REG_WIDTH-1:0] rd_write_data_4;
+   wire [REG_WIDTH-1:0] rd_write_data_5;
+   wire [REG_WIDTH-1:0] rd_write_data_6;
+   wire [REG_WIDTH-1:0] rd_write_data_7;
+   
+   wire [REG_WIDTH-1:0] i_rd_we_0;
+   wire [REG_WIDTH-1:0] i_rd_we_1;
+   wire [REG_WIDTH-1:0] i_rd_we_2;
+   wire [REG_WIDTH-1:0] i_rd_we_3;
+   wire [REG_WIDTH-1:0] i_rd_we_4;
+   wire [REG_WIDTH-1:0] i_rd_we_5;
+   wire [REG_WIDTH-1:0] i_rd_we_6;
+   wire [REG_WIDTH-1:0] i_rd_we_7;
 
    //decoder_3_to_8 m0(i_rd_A,rd_select_A);
    //decoder_3_to_8 m1(i_rd_B,rd_select_B);
    
    //for(genvar i=0;i<REG_NUM;i=i+1)begin
-   assign rd_write_data[0]=(i_rd_B==3'b000 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b000 & i_rd_we_A)? i_wdata_A : 3'b000 ; 
-   assign rd_write_data[1]=(i_rd_B==3'b001 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b001 & i_rd_we_A)? i_wdata_A : 3'b001 ; 
-   assign rd_write_data[2]=(i_rd_B==3'b010 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b010 & i_rd_we_A)? i_wdata_A : 3'b010 ; 
-   assign rd_write_data[3]=(i_rd_B==3'b011 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b011 & i_rd_we_A)? i_wdata_A : 3'b011 ; 
-   assign rd_write_data[4]=(i_rd_B==3'b100 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b100 & i_rd_we_A)? i_wdata_A : 3'b100 ; 
-   assign rd_write_data[5]=(i_rd_B==3'b101 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b101 & i_rd_we_A)? i_wdata_A : 3'b101 ; 
-   assign rd_write_data[6]=(i_rd_B==3'b110 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b110 & i_rd_we_A)? i_wdata_A : 3'b110 ; 
-   assign rd_write_data[7]=(i_rd_B==3'b111 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b111 & i_rd_we_A)? i_wdata_A : 3'b111 ; 
+//    assign rd_write_data[0]=(i_rd_B==3'b000 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b000 & i_rd_we_A)? i_wdata_A : 3'b000 ; 
+//    assign rd_write_data[1]=(i_rd_B==3'b001 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b001 & i_rd_we_A)? i_wdata_A : 3'b001 ; 
+//    assign rd_write_data[2]=(i_rd_B==3'b010 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b010 & i_rd_we_A)? i_wdata_A : 3'b010 ; 
+//    assign rd_write_data[3]=(i_rd_B==3'b011 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b011 & i_rd_we_A)? i_wdata_A : 3'b011 ; 
+//    assign rd_write_data[4]=(i_rd_B==3'b100 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b100 & i_rd_we_A)? i_wdata_A : 3'b100 ; 
+//    assign rd_write_data[5]=(i_rd_B==3'b101 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b101 & i_rd_we_A)? i_wdata_A : 3'b101 ; 
+//    assign rd_write_data[6]=(i_rd_B==3'b110 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b110 & i_rd_we_A)? i_wdata_A : 3'b110 ; 
+//    assign rd_write_data[7]=(i_rd_B==3'b111 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b111 & i_rd_we_A)? i_wdata_A : 3'b111 ; 
    
-   assign i_rd_we[0]= (i_rd_B==3'b000 & i_rd_we_B ) | (i_rd_A==3'b000 & i_rd_we_A);
-   assign i_rd_we[1]= (i_rd_B==3'b001 & i_rd_we_B ) | (i_rd_A==3'b001 & i_rd_we_A);
-   assign i_rd_we[2]= (i_rd_B==3'b010 & i_rd_we_B ) | (i_rd_A==3'b010 & i_rd_we_A);
-   assign i_rd_we[3]= (i_rd_B==3'b011 & i_rd_we_B ) | (i_rd_A==3'b011 & i_rd_we_A);
-   assign i_rd_we[4]= (i_rd_B==3'b100 & i_rd_we_B ) | (i_rd_A==3'b100 & i_rd_we_A);
-   assign i_rd_we[5]= (i_rd_B==3'b101 & i_rd_we_B ) | (i_rd_A==3'b101 & i_rd_we_A); 
-   assign i_rd_we[6]= (i_rd_B==3'b110 & i_rd_we_B ) | (i_rd_A==3'b110 & i_rd_we_A); 
-   assign i_rd_we[7]= (i_rd_B==3'b111 & i_rd_we_B ) | (i_rd_A==3'b111 & i_rd_we_A);
+   assign rd_write_data_0 = (i_rd_B==3'b000 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b000 & i_rd_we_A)? i_wdata_A : 3'b000 ; 
+   assign rd_write_data_1 = (i_rd_B==3'b001 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b001 & i_rd_we_A)? i_wdata_A : 3'b001 ; 
+   assign rd_write_data_2 = (i_rd_B==3'b010 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b010 & i_rd_we_A)? i_wdata_A : 3'b010 ; 
+   assign rd_write_data_3 = (i_rd_B==3'b011 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b011 & i_rd_we_A)? i_wdata_A : 3'b011 ; 
+   assign rd_write_data_4 = (i_rd_B==3'b100 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b100 & i_rd_we_A)? i_wdata_A : 3'b100 ; 
+   assign rd_write_data_5 = (i_rd_B==3'b101 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b101 & i_rd_we_A)? i_wdata_A : 3'b101 ; 
+   assign rd_write_data_6 = (i_rd_B==3'b110 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b110 & i_rd_we_A)? i_wdata_A : 3'b110 ; 
+   assign rd_write_data_7 = (i_rd_B==3'b111 & i_rd_we_B )?i_wdata_B : (i_rd_A==3'b111 & i_rd_we_A)? i_wdata_A : 3'b111 ; 
+ 
+//    assign i_rd_we[0]= (i_rd_B==3'b000 & i_rd_we_B ) | (i_rd_A==3'b000 & i_rd_we_A);
+//    assign i_rd_we[1]= (i_rd_B==3'b001 & i_rd_we_B ) | (i_rd_A==3'b001 & i_rd_we_A);
+//    assign i_rd_we[2]= (i_rd_B==3'b010 & i_rd_we_B ) | (i_rd_A==3'b010 & i_rd_we_A);
+//    assign i_rd_we[3]= (i_rd_B==3'b011 & i_rd_we_B ) | (i_rd_A==3'b011 & i_rd_we_A);
+//    assign i_rd_we[4]= (i_rd_B==3'b100 & i_rd_we_B ) | (i_rd_A==3'b100 & i_rd_we_A);
+//    assign i_rd_we[5]= (i_rd_B==3'b101 & i_rd_we_B ) | (i_rd_A==3'b101 & i_rd_we_A); 
+//    assign i_rd_we[6]= (i_rd_B==3'b110 & i_rd_we_B ) | (i_rd_A==3'b110 & i_rd_we_A); 
+//    assign i_rd_we[7]= (i_rd_B==3'b111 & i_rd_we_B ) | (i_rd_A==3'b111 & i_rd_we_A);
   
+   assign i_rd_we_0 = (i_rd_B==3'b000 & i_rd_we_B ) | (i_rd_A==3'b000 & i_rd_we_A);
+   assign i_rd_we_1 = (i_rd_B==3'b001 & i_rd_we_B ) | (i_rd_A==3'b001 & i_rd_we_A);
+   assign i_rd_we_2 = (i_rd_B==3'b010 & i_rd_we_B ) | (i_rd_A==3'b010 & i_rd_we_A);
+   assign i_rd_we_3 = (i_rd_B==3'b011 & i_rd_we_B ) | (i_rd_A==3'b011 & i_rd_we_A);
+   assign i_rd_we_4 = (i_rd_B==3'b100 & i_rd_we_B ) | (i_rd_A==3'b100 & i_rd_we_A);
+   assign i_rd_we_5 = (i_rd_B==3'b101 & i_rd_we_B ) | (i_rd_A==3'b101 & i_rd_we_A); 
+   assign i_rd_we_6 = (i_rd_B==3'b110 & i_rd_we_B ) | (i_rd_A==3'b110 & i_rd_we_A); 
+   assign i_rd_we_7 = (i_rd_B==3'b111 & i_rd_we_B ) | (i_rd_A==3'b111 & i_rd_we_A);
 
-   Nbit_reg #(REG_WIDTH) r0 (rd_write_data[0] , r0v, clk,  i_rd_we[0], gwe,rst);
-   Nbit_reg #(REG_WIDTH) r1 (rd_write_data[1] , r1v, clk,  i_rd_we[1], gwe,rst);
-   Nbit_reg #(REG_WIDTH) r2 (rd_write_data[2] , r2v, clk,  i_rd_we[2], gwe,rst);
-   Nbit_reg #(REG_WIDTH) r3 (rd_write_data[3],  r3v, clk,  i_rd_we[3], gwe,rst);
-   Nbit_reg #(REG_WIDTH) r4 (rd_write_data[4],  r4v, clk,  i_rd_we[4], gwe,rst);
-   Nbit_reg #(REG_WIDTH) r5 (rd_write_data[5],  r5v, clk,  i_rd_we[5], gwe,rst);
-   Nbit_reg #(REG_WIDTH) r6 (rd_write_data[6],  r6v, clk,  i_rd_we[6], gwe,rst);
-   Nbit_reg #(REG_WIDTH) r7 (rd_write_data[7],  r7v, clk,  i_rd_we[7], gwe,rst);
+   Nbit_reg #(REG_WIDTH) r0 (rd_write_data_0 ,  r0v, clk,  i_rd_we_0 , gwe,rst);
+   Nbit_reg #(REG_WIDTH) r1 (rd_write_data_1 ,  r1v, clk,  i_rd_we_1 , gwe,rst);
+   Nbit_reg #(REG_WIDTH) r2 (rd_write_data_2 ,  r2v, clk,  i_rd_we_2 , gwe,rst);
+   Nbit_reg #(REG_WIDTH) r3 (rd_write_data_3 ,  r3v, clk,  i_rd_we_3 , gwe,rst);
+   Nbit_reg #(REG_WIDTH) r4 (rd_write_data_4 ,  r4v, clk,  i_rd_we_4 , gwe,rst);
+   Nbit_reg #(REG_WIDTH) r5 (rd_write_data_5 ,  r5v, clk,  i_rd_we_5 , gwe,rst);
+   Nbit_reg #(REG_WIDTH) r6 (rd_write_data_6 ,  r6v, clk,  i_rd_we_6 , gwe,rst);
+   Nbit_reg #(REG_WIDTH) r7 (rd_write_data_7 ,  r7v, clk,  i_rd_we_7 , gwe,rst);
 
    MUX81  m2(r0v, r1v, r2v, r3v,r4v, r5v, r6v, r7v,i_rs_A,o_rs_data_A_temp);
    MUX81  m3(r0v, r1v, r2v, r3v,r4v, r5v, r6v, r7v,i_rt_A,o_rt_data_A_temp);

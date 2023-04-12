@@ -1,7 +1,7 @@
 
 /* TODO: INSERT NAME AND PENNKEY HERE */
 //Shuhan Qian: qiansh
-//Lihong Zhao: lihongzh
+//Lihong Zhao: lihzhao
 `timescale 1ns / 1ps
 `default_nettype none
 
