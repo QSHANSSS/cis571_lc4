@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-| Date         : Wed Apr 12 16:17:31 2023
+| Date         : Thu May 11 11:48:55 2023
 | Host         : big03.seas.upenn.edu running 64-bit openSUSE Leap 15.4
 | Command      : report_timing_summary -file ./output/post_synth_timing_summary_report.txt
 | Design       : lc4_system
@@ -128,7 +128,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-      2.278        0.000                      0                 2752        0.083        0.000                      0                 2752        3.000        0.000                       0                   755  
+      2.772        0.000                      0                 3014        0.083        0.000                      0                 3014        3.000        0.000                       0                   859  
 
 
 All user specified timing constraints are met.
@@ -156,7 +156,7 @@ CLOCK_100MHz                          {0.000 5.000}      10.000          100.000
 Clock                                     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----                                     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
 CLOCK_100MHz                                                                                                                                                                            3.000        0.000                       0                     1  
-  clk_processor_design_1_clk_wiz_0_0        2.278        0.000                      0                 2566        0.132        0.000                      0                 2566       28.020        0.000                       0                   697  
+  clk_processor_design_1_clk_wiz_0_0        2.772        0.000                      0                 2828        0.140        0.000                      0                 2828       28.500        0.000                       0                   801  
   clk_vga_design_1_clk_wiz_0_0                                                                                                                                                         37.424        0.000                       0                    10  
   clk_vga_inv_design_1_clk_wiz_0_0         35.931        0.000                      0                   62        0.083        0.000                      0                   62       19.020        0.000                       0                    44  
   clkfbout_design_1_clk_wiz_0_0                                                                                                                                                         7.845        0.000                       0                     3  
@@ -217,24 +217,24 @@ High Pulse Width  Fast    MMCME2_ADV/CLKIN1  n/a            2.000         5.000 
 From Clock:  clk_processor_design_1_clk_wiz_0_0
   To Clock:  clk_processor_design_1_clk_wiz_0_0
 
-Setup :            0  Failing Endpoints,  Worst Slack        2.278ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.132ns,  Total Violation        0.000ns
-PW    :            0  Failing Endpoints,  Worst Slack       28.020ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        2.772ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.140ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack       28.500ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             2.278ns  (required time - arrival time)
-  Source:                 proc_inst/rd_reg_w_B/state_reg[2]/C
+Slack (MET) :             2.772ns  (required time - arrival time)
+  Source:                 proc_inst/rs_reg_x/state_reg[0]/C
                             (rising edge-triggered cell FDRE clocked by clk_processor_design_1_clk_wiz_0_0  {rise@0.000ns fall@29.000ns period=58.000ns})
-  Destination:            proc_inst/nzp_reg_m/state_reg[1]/D
+  Destination:            proc_inst/nzp_reg_m/state_reg[0]/D
                             (rising edge-triggered cell FDRE clocked by clk_processor_design_1_clk_wiz_0_0  {rise@0.000ns fall@29.000ns period=58.000ns})
   Path Group:             clk_processor_design_1_clk_wiz_0_0
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            58.000ns  (clk_processor_design_1_clk_wiz_0_0 rise@58.000ns - clk_processor_design_1_clk_wiz_0_0 rise@0.000ns)
-  Data Path Delay:        55.524ns  (logic 16.179ns (29.139%)  route 39.345ns (70.861%))
-  Logic Levels:           72  (CARRY4=32 LUT3=3 LUT4=3 LUT5=14 LUT6=20)
+  Data Path Delay:        55.030ns  (logic 16.213ns (29.462%)  route 38.817ns (70.538%))
+  Logic Levels:           72  (CARRY4=32 LUT3=3 LUT4=3 LUT5=15 LUT6=19)
   Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    -2.229ns = ( 55.771 - 58.000 ) 
     Source Clock Delay      (SCD):    -1.554ns
@@ -256,188 +256,188 @@ Slack (MET) :             2.278ns  (required time - arrival time)
                                                      -5.113    -3.038 r  mmcm0/mmcm_adv_inst/CLKOUT0
                          net (fo=1, unplaced)         0.800    -2.239    mmcm0/clk_processor_design_1_clk_wiz_0_0
                          BUFG (Prop_bufg_I_O)         0.101    -2.138 r  mmcm0/clkout1_buf/O
-                         net (fo=695, unplaced)       0.584    -1.554    proc_inst/rd_reg_w_B/clk_processor
-                         FDRE                                         r  proc_inst/rd_reg_w_B/state_reg[2]/C
+                         net (fo=799, unplaced)       0.584    -1.554    proc_inst/rs_reg_x/clk_processor
+                         FDRE                                         r  proc_inst/rs_reg_x/state_reg[0]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.478    -1.076 r  proc_inst/rd_reg_w_B/state_reg[2]/Q
-                         net (fo=24, unplaced)        0.805    -0.271    proc_inst/rs_reg_x/o_remainder0_carry_i_19_0
-                         LUT4 (Prop_lut4_I1_O)        0.295     0.024 f  proc_inst/rs_reg_x/o_remainder0_carry_i_24/O
-                         net (fo=2, unplaced)         1.122     1.146    proc_inst/rs_reg_x/o_remainder0_carry_i_24_n_0
-                         LUT6 (Prop_lut6_I1_O)        0.124     1.270 f  proc_inst/rs_reg_x/o_remainder0_carry_i_19/O
-                         net (fo=18, unplaced)        0.959     2.229    proc_inst/rs_reg_x/state_reg[0]_0
-                         LUT6 (Prop_lut6_I1_O)        0.124     2.353 f  proc_inst/rs_reg_x/o_remainder0_carry_i_9__12/O
-                         net (fo=2, unplaced)         0.913     3.266    proc_inst/rs_reg_x/state_reg[15]
-                         LUT5 (Prop_lut5_I0_O)        0.124     3.390 f  proc_inst/rs_reg_x/mul0_i_17/O
-                         net (fo=57, unplaced)        0.988     4.378    proc_inst/rd_reg_m/rs_alu_A[15]
-                         LUT3 (Prop_lut3_I1_O)        0.148     4.526 r  proc_inst/rd_reg_m/o_remainder1_carry_i_4/O
-                         net (fo=1, unplaced)         0.000     4.526    proc_inst/A_PIPE/m1/m0/DI[0]
+                         FDRE (Prop_fdre_C_Q)         0.478    -1.076 r  proc_inst/rs_reg_x/state_reg[0]/Q
+                         net (fo=4, unplaced)         0.765    -0.311    proc_inst/rd_reg_w_B/o_remainder0_carry_i_19__0
+                         LUT4 (Prop_lut4_I1_O)        0.295    -0.016 f  proc_inst/rd_reg_w_B/o_remainder0_carry_i_24/O
+                         net (fo=2, unplaced)         1.122     1.106    proc_inst/rd_reg_m_B/o_remainder0_carry_i_9_1
+                         LUT6 (Prop_lut6_I1_O)        0.124     1.230 f  proc_inst/rd_reg_m_B/o_remainder0_carry_i_19__0/O
+                         net (fo=18, unplaced)        0.959     2.189    proc_inst/rd_reg_m_B/o_remainder0_carry_i_19__0_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     2.313 f  proc_inst/rd_reg_m_B/o_remainder0_carry_i_9/O
+                         net (fo=2, unplaced)         0.913     3.226    proc_inst/rd_reg_w_B/mul0
+                         LUT5 (Prop_lut5_I0_O)        0.124     3.350 f  proc_inst/rd_reg_w_B/mul0_i_17/O
+                         net (fo=56, unplaced)        0.987     4.337    proc_inst/rt_reg_x/rs_alu_A[15]
+                         LUT3 (Prop_lut3_I1_O)        0.148     4.485 r  proc_inst/rt_reg_x/o_remainder1_carry_i_4/O
+                         net (fo=1, unplaced)         0.000     4.485    proc_inst/A_PIPE/m1/m0/DI[0]
                          CARRY4 (Prop_carry4_DI[0]_CO[3])
-                                                      0.576     5.102 r  proc_inst/A_PIPE/m1/m0/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009     5.111    proc_inst/A_PIPE/m1/m0/o_remainder1_carry_n_0
+                                                      0.576     5.061 r  proc_inst/A_PIPE/m1/m0/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009     5.070    proc_inst/A_PIPE/m1/m0/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117     5.228 r  proc_inst/A_PIPE/m1/m0/o_remainder1_carry__0/CO[3]
-                         net (fo=108, unplaced)       1.019     6.247    proc_inst/rs_reg_x/CO[0]
-                         LUT6 (Prop_lut6_I5_O)        0.124     6.371 r  proc_inst/rs_reg_x/o_remainder0_carry_i_3/O
-                         net (fo=2, unplaced)         0.650     7.021    proc_inst/A_PIPE/m1/m1/temp1_remainder[0]
+                                                      0.117     5.187 r  proc_inst/A_PIPE/m1/m0/o_remainder1_carry__0/CO[3]
+                         net (fo=108, unplaced)       1.019     6.206    proc_inst/rt_reg_x/CO[0]
+                         LUT6 (Prop_lut6_I5_O)        0.124     6.330 r  proc_inst/rt_reg_x/o_remainder0_carry_i_3/O
+                         net (fo=2, unplaced)         0.650     6.980    proc_inst/A_PIPE/m1/m1/temp1_remainder[0]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520     7.541 r  proc_inst/A_PIPE/m1/m1/o_remainder0_carry/CO[3]
-                         net (fo=1, unplaced)         0.009     7.550    proc_inst/A_PIPE/m1/m1/o_remainder0_carry_n_0
+                                                      0.520     7.500 r  proc_inst/A_PIPE/m1/m1/o_remainder0_carry/CO[3]
+                         net (fo=1, unplaced)         0.009     7.509    proc_inst/A_PIPE/m1/m1/o_remainder0_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117     7.667 r  proc_inst/A_PIPE/m1/m1/o_remainder0_carry__0/CO[3]
-                         net (fo=1, unplaced)         0.000     7.667    proc_inst/A_PIPE/m1/m1/o_remainder0_carry__0_n_0
+                                                      0.117     7.626 r  proc_inst/A_PIPE/m1/m1/o_remainder0_carry__0/CO[3]
+                         net (fo=1, unplaced)         0.000     7.626    proc_inst/A_PIPE/m1/m1/o_remainder0_carry__0_n_0
                          CARRY4 (Prop_carry4_CI_O[1])
-                                                      0.337     8.004 f  proc_inst/A_PIPE/m1/m1/o_remainder0_carry__1/O[1]
-                         net (fo=5, unplaced)         0.639     8.643    proc_inst/rd_reg_m/o_remainder0[9]
-                         LUT4 (Prop_lut4_I2_O)        0.306     8.949 f  proc_inst/rd_reg_m/o_remainder1_carry__0_i_13__0/O
-                         net (fo=1, unplaced)         0.419     9.368    proc_inst/rd_reg_m/A_PIPE/m1/temp2_remainder[9]
-                         LUT4 (Prop_lut4_I1_O)        0.124     9.492 r  proc_inst/rd_reg_m/o_remainder1_carry__0_i_3__1/O
-                         net (fo=1, unplaced)         0.639    10.131    proc_inst/A_PIPE/m1/m2/state[13]_i_12__0[1]
+                                                      0.337     7.963 f  proc_inst/A_PIPE/m1/m1/o_remainder0_carry__1/O[1]
+                         net (fo=5, unplaced)         0.639     8.602    proc_inst/rt_reg_x/o_remainder0[9]
+                         LUT4 (Prop_lut4_I2_O)        0.306     8.908 f  proc_inst/rt_reg_x/o_remainder1_carry__0_i_13__0/O
+                         net (fo=1, unplaced)         0.419     9.327    proc_inst/rt_reg_x/A_PIPE/m1/temp2_remainder[9]
+                         LUT4 (Prop_lut4_I1_O)        0.124     9.451 r  proc_inst/rt_reg_x/o_remainder1_carry__0_i_3__1/O
+                         net (fo=1, unplaced)         0.639    10.090    proc_inst/A_PIPE/m1/m2/state[13]_i_12[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    10.651 r  proc_inst/A_PIPE/m1/m2/o_remainder1_carry__0/CO[3]
-                         net (fo=30, unplaced)        0.988    11.639    proc_inst/A_PIPE/m1/m1/o_remainder1_carry_i_7__26[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    11.763 f  proc_inst/A_PIPE/m1/m1/o_remainder0_carry_i_1/O
-                         net (fo=6, unplaced)         0.481    12.244    proc_inst/rd_reg_m/temp3_remainder[1]
-                         LUT3 (Prop_lut3_I1_O)        0.117    12.361 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__2/O
-                         net (fo=1, unplaced)         0.000    12.361    proc_inst/A_PIPE/m1/m3/o_remainder1_carry__0_8[1]
+                                                      0.520    10.610 r  proc_inst/A_PIPE/m1/m2/o_remainder1_carry__0/CO[3]
+                         net (fo=30, unplaced)        0.988    11.598    proc_inst/rt_reg_x/o_remainder0_carry_0[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    11.722 f  proc_inst/rt_reg_x/o_remainder0_carry_i_1/O
+                         net (fo=6, unplaced)         0.481    12.203    proc_inst/rt_reg_x/temp3_remainder[0]
+                         LUT3 (Prop_lut3_I1_O)        0.117    12.320 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__2/O
+                         net (fo=1, unplaced)         0.000    12.320    proc_inst/A_PIPE/m1/m3/o_remainder1_carry__0_6[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.547    12.908 r  proc_inst/A_PIPE/m1/m3/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    12.917    proc_inst/A_PIPE/m1/m3/o_remainder1_carry_n_0
+                                                      0.547    12.867 r  proc_inst/A_PIPE/m1/m3/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    12.876    proc_inst/A_PIPE/m1/m3/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    13.034 r  proc_inst/A_PIPE/m1/m3/o_remainder1_carry__0/CO[3]
-                         net (fo=70, unplaced)        1.009    14.043    proc_inst/rd_reg_m/o_remainder0_carry__2[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    14.167 f  proc_inst/rd_reg_m/o_remainder0_carry__0_i_4/O
-                         net (fo=4, unplaced)         0.473    14.640    proc_inst/rd_reg_m/o_remainder1_carry__0_10[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    14.764 r  proc_inst/rd_reg_m/o_remainder1_carry_i_2__3/O
-                         net (fo=1, unplaced)         0.474    15.238    proc_inst/A_PIPE/m1/m4/o_remainder1_carry__0_6[2]
+                                                      0.117    12.993 r  proc_inst/A_PIPE/m1/m3/o_remainder1_carry__0/CO[3]
+                         net (fo=70, unplaced)        1.009    14.002    proc_inst/rt_reg_x/o_remainder0_carry__2[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    14.126 f  proc_inst/rt_reg_x/o_remainder0_carry__0_i_4/O
+                         net (fo=4, unplaced)         0.473    14.599    proc_inst/rt_reg_x/o_remainder1_carry__0_9[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    14.723 r  proc_inst/rt_reg_x/o_remainder1_carry_i_2__2/O
+                         net (fo=1, unplaced)         0.474    15.197    proc_inst/A_PIPE/m1/m4/o_remainder1_carry__0_6[2]
                          CARRY4 (Prop_carry4_DI[2]_CO[3])
-                                                      0.404    15.642 r  proc_inst/A_PIPE/m1/m4/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    15.651    proc_inst/A_PIPE/m1/m4/o_remainder1_carry_n_0
+                                                      0.404    15.601 r  proc_inst/A_PIPE/m1/m4/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    15.610    proc_inst/A_PIPE/m1/m4/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    15.768 r  proc_inst/A_PIPE/m1/m4/o_remainder1_carry__0/CO[3]
-                         net (fo=46, unplaced)        0.998    16.766    proc_inst/A_PIPE/m1/m3/o_remainder0_carry__0_i_9__2[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    16.890 f  proc_inst/A_PIPE/m1/m3/o_remainder0_carry_i_2__3/O
-                         net (fo=10, unplaced)        0.492    17.382    proc_inst/rd_reg_m/o_remainder0_carry__0[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    17.506 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__4/O
-                         net (fo=1, unplaced)         0.639    18.145    proc_inst/A_PIPE/m1/m5/o_remainder1_carry__0_6[1]
+                                                      0.117    15.727 r  proc_inst/A_PIPE/m1/m4/o_remainder1_carry__0/CO[3]
+                         net (fo=46, unplaced)        0.998    16.725    proc_inst/A_PIPE/m1/m3/o_remainder0_carry__0_i_9__2[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    16.849 f  proc_inst/A_PIPE/m1/m3/o_remainder0_carry_i_2__3/O
+                         net (fo=10, unplaced)        0.492    17.341    proc_inst/rt_reg_x/o_remainder0_carry__0_i_1__6_0[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    17.465 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__4/O
+                         net (fo=1, unplaced)         0.639    18.104    proc_inst/A_PIPE/m1/m5/o_remainder1_carry__0_6[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    18.665 r  proc_inst/A_PIPE/m1/m5/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    18.674    proc_inst/A_PIPE/m1/m5/o_remainder1_carry_n_0
+                                                      0.520    18.624 r  proc_inst/A_PIPE/m1/m5/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    18.633    proc_inst/A_PIPE/m1/m5/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    18.791 r  proc_inst/A_PIPE/m1/m5/o_remainder1_carry__0/CO[3]
-                         net (fo=70, unplaced)        1.009    19.800    proc_inst/A_PIPE/m1/m4/o_remainder0_carry__0_i_9__3[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    19.924 f  proc_inst/A_PIPE/m1/m4/o_remainder0_carry_i_2__4/O
-                         net (fo=10, unplaced)        0.492    20.416    proc_inst/rd_reg_m/o_remainder0_carry__0_1[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    20.540 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__5/O
-                         net (fo=1, unplaced)         0.639    21.179    proc_inst/A_PIPE/m1/m6/o_remainder1_carry__0_5[1]
+                                                      0.117    18.750 r  proc_inst/A_PIPE/m1/m5/o_remainder1_carry__0/CO[3]
+                         net (fo=70, unplaced)        1.009    19.759    proc_inst/A_PIPE/m1/m4/o_remainder0_carry__0_i_9__3[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    19.883 f  proc_inst/A_PIPE/m1/m4/o_remainder0_carry_i_2__4/O
+                         net (fo=10, unplaced)        0.492    20.375    proc_inst/rt_reg_x/o_remainder0_carry__0_0[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    20.499 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__5/O
+                         net (fo=1, unplaced)         0.639    21.138    proc_inst/A_PIPE/m1/m6/o_remainder1_carry__0_5[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    21.699 r  proc_inst/A_PIPE/m1/m6/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    21.708    proc_inst/A_PIPE/m1/m6/o_remainder1_carry_n_0
+                                                      0.520    21.658 r  proc_inst/A_PIPE/m1/m6/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    21.667    proc_inst/A_PIPE/m1/m6/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    21.825 r  proc_inst/A_PIPE/m1/m6/o_remainder1_carry__0/CO[3]
-                         net (fo=52, unplaced)        1.001    22.826    proc_inst/A_PIPE/m1/m5/o_remainder0_carry__0_i_9__4[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    22.950 f  proc_inst/A_PIPE/m1/m5/o_remainder0_carry_i_2__5/O
-                         net (fo=10, unplaced)        0.492    23.442    proc_inst/rd_reg_m/o_remainder1_carry[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    23.566 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__6/O
-                         net (fo=1, unplaced)         0.639    24.205    proc_inst/A_PIPE/m1/m7/o_remainder1_carry__0_6[1]
+                                                      0.117    21.784 r  proc_inst/A_PIPE/m1/m6/o_remainder1_carry__0/CO[3]
+                         net (fo=52, unplaced)        1.001    22.785    proc_inst/A_PIPE/m1/m5/o_remainder0_carry__0_i_9__4[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    22.909 f  proc_inst/A_PIPE/m1/m5/o_remainder0_carry_i_2__5/O
+                         net (fo=10, unplaced)        0.492    23.401    proc_inst/rt_reg_x/o_remainder1_carry[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    23.525 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__6/O
+                         net (fo=1, unplaced)         0.639    24.164    proc_inst/A_PIPE/m1/m7/o_remainder1_carry__0_6[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    24.725 r  proc_inst/A_PIPE/m1/m7/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    24.734    proc_inst/A_PIPE/m1/m7/o_remainder1_carry_n_0
+                                                      0.520    24.684 r  proc_inst/A_PIPE/m1/m7/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    24.693    proc_inst/A_PIPE/m1/m7/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    24.851 r  proc_inst/A_PIPE/m1/m7/o_remainder1_carry__0/CO[3]
-                         net (fo=70, unplaced)        1.009    25.860    proc_inst/A_PIPE/m1/m6/o_remainder0_carry__0_i_9__5[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    25.984 f  proc_inst/A_PIPE/m1/m6/o_remainder0_carry_i_2__6/O
-                         net (fo=10, unplaced)        0.492    26.476    proc_inst/rd_reg_m/o_remainder0_carry__1_0[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    26.600 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__7/O
-                         net (fo=1, unplaced)         0.639    27.239    proc_inst/A_PIPE/m1/m8/o_remainder1_carry__0_5[1]
+                                                      0.117    24.810 r  proc_inst/A_PIPE/m1/m7/o_remainder1_carry__0/CO[3]
+                         net (fo=70, unplaced)        1.009    25.819    proc_inst/A_PIPE/m1/m6/o_remainder0_carry__0_i_9__5[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    25.943 f  proc_inst/A_PIPE/m1/m6/o_remainder0_carry_i_2__6/O
+                         net (fo=10, unplaced)        0.492    26.435    proc_inst/rt_reg_x/o_remainder0_carry__1_0[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    26.559 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__7/O
+                         net (fo=1, unplaced)         0.639    27.198    proc_inst/A_PIPE/m1/m8/o_remainder1_carry__0_5[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    27.759 r  proc_inst/A_PIPE/m1/m8/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    27.768    proc_inst/A_PIPE/m1/m8/o_remainder1_carry_n_0
+                                                      0.520    27.718 r  proc_inst/A_PIPE/m1/m8/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    27.727    proc_inst/A_PIPE/m1/m8/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    27.885 r  proc_inst/A_PIPE/m1/m8/o_remainder1_carry__0/CO[3]
-                         net (fo=57, unplaced)        1.004    28.889    proc_inst/A_PIPE/m1/m7/o_remainder0_carry__0_i_8__9[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    29.013 f  proc_inst/A_PIPE/m1/m7/o_remainder0_carry_i_2__7/O
-                         net (fo=9, unplaced)         0.490    29.503    proc_inst/rd_reg_m/o_remainder0_carry__1[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    29.627 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__8/O
-                         net (fo=1, unplaced)         0.639    30.266    proc_inst/A_PIPE/m1/m9/o_remainder1_carry__0_4[1]
+                                                      0.117    27.844 r  proc_inst/A_PIPE/m1/m8/o_remainder1_carry__0/CO[3]
+                         net (fo=57, unplaced)        1.004    28.848    proc_inst/A_PIPE/m1/m7/o_remainder0_carry__0_i_8__9[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    28.972 f  proc_inst/A_PIPE/m1/m7/o_remainder0_carry_i_2__7/O
+                         net (fo=9, unplaced)         0.490    29.462    proc_inst/rt_reg_x/o_remainder0_carry__1[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    29.586 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__8/O
+                         net (fo=1, unplaced)         0.639    30.225    proc_inst/A_PIPE/m1/m9/o_remainder1_carry__0_4[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    30.786 r  proc_inst/A_PIPE/m1/m9/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    30.795    proc_inst/A_PIPE/m1/m9/o_remainder1_carry_n_0
+                                                      0.520    30.745 r  proc_inst/A_PIPE/m1/m9/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    30.754    proc_inst/A_PIPE/m1/m9/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    30.912 r  proc_inst/A_PIPE/m1/m9/o_remainder1_carry__0/CO[3]
-                         net (fo=70, unplaced)        1.009    31.921    proc_inst/A_PIPE/m1/m8/o_remainder0_carry__0_i_8__10[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    32.045 f  proc_inst/A_PIPE/m1/m8/o_remainder0_carry_i_2__8/O
-                         net (fo=9, unplaced)         0.490    32.535    proc_inst/rd_reg_m/o_remainder0_carry__1_1[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    32.659 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__9/O
-                         net (fo=1, unplaced)         0.639    33.298    proc_inst/A_PIPE/m1/m10/o_remainder1_carry__0_3[1]
+                                                      0.117    30.871 r  proc_inst/A_PIPE/m1/m9/o_remainder1_carry__0/CO[3]
+                         net (fo=70, unplaced)        1.009    31.880    proc_inst/A_PIPE/m1/m8/o_remainder0_carry__0_i_8__10[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    32.004 f  proc_inst/A_PIPE/m1/m8/o_remainder0_carry_i_2__8/O
+                         net (fo=9, unplaced)         0.490    32.494    proc_inst/rt_reg_x/o_remainder0_carry__1_1[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    32.618 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__9/O
+                         net (fo=1, unplaced)         0.639    33.257    proc_inst/A_PIPE/m1/m10/o_remainder1_carry__0_3[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    33.818 r  proc_inst/A_PIPE/m1/m10/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    33.827    proc_inst/A_PIPE/m1/m10/o_remainder1_carry_n_0
+                                                      0.520    33.777 r  proc_inst/A_PIPE/m1/m10/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    33.786    proc_inst/A_PIPE/m1/m10/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    33.944 r  proc_inst/A_PIPE/m1/m10/o_remainder1_carry__0/CO[3]
-                         net (fo=63, unplaced)        1.006    34.950    proc_inst/A_PIPE/m1/m9/CO[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    35.074 f  proc_inst/A_PIPE/m1/m9/o_remainder0_carry_i_2__9/O
-                         net (fo=9, unplaced)         0.490    35.564    proc_inst/rd_reg_m/o_remainder0_carry__2_6[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    35.688 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__10/O
-                         net (fo=1, unplaced)         0.639    36.327    proc_inst/A_PIPE/m1/m11/o_remainder1_carry__0_2[1]
+                                                      0.117    33.903 r  proc_inst/A_PIPE/m1/m10/o_remainder1_carry__0/CO[3]
+                         net (fo=63, unplaced)        1.006    34.909    proc_inst/A_PIPE/m1/m9/o_remainder0_carry__0_i_8__11[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    35.033 f  proc_inst/A_PIPE/m1/m9/o_remainder0_carry_i_2__9/O
+                         net (fo=9, unplaced)         0.490    35.523    proc_inst/rt_reg_x/o_remainder0_carry__2_6[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    35.647 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__10/O
+                         net (fo=1, unplaced)         0.639    36.286    proc_inst/A_PIPE/m1/m11/o_remainder1_carry__0_2[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    36.847 r  proc_inst/A_PIPE/m1/m11/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    36.856    proc_inst/A_PIPE/m1/m11/o_remainder1_carry_n_0
+                                                      0.520    36.806 r  proc_inst/A_PIPE/m1/m11/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    36.815    proc_inst/A_PIPE/m1/m11/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    36.973 r  proc_inst/A_PIPE/m1/m11/o_remainder1_carry__0/CO[3]
-                         net (fo=68, unplaced)        1.008    37.981    proc_inst/A_PIPE/m1/m10/o_remainder0_carry__0_i_8__12[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    38.105 f  proc_inst/A_PIPE/m1/m10/o_remainder0_carry_i_2__10/O
-                         net (fo=9, unplaced)         0.490    38.595    proc_inst/rd_reg_m/o_remainder0_carry__2_7[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    38.719 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__11/O
-                         net (fo=1, unplaced)         0.639    39.358    proc_inst/A_PIPE/m1/m12/o_remainder1_carry__0_1[1]
+                                                      0.117    36.932 r  proc_inst/A_PIPE/m1/m11/o_remainder1_carry__0/CO[3]
+                         net (fo=68, unplaced)        1.008    37.940    proc_inst/A_PIPE/m1/m10/o_remainder0_carry__0_i_8__12[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    38.064 f  proc_inst/A_PIPE/m1/m10/o_remainder0_carry_i_2__10/O
+                         net (fo=9, unplaced)         0.490    38.554    proc_inst/rt_reg_x/o_remainder0_carry__2_7[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    38.678 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__11/O
+                         net (fo=1, unplaced)         0.639    39.317    proc_inst/A_PIPE/m1/m12/o_remainder1_carry__0_1[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    39.878 r  proc_inst/A_PIPE/m1/m12/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    39.887    proc_inst/A_PIPE/m1/m12/o_remainder1_carry_n_0
+                                                      0.520    39.837 r  proc_inst/A_PIPE/m1/m12/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    39.846    proc_inst/A_PIPE/m1/m12/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    40.004 r  proc_inst/A_PIPE/m1/m12/o_remainder1_carry__0/CO[3]
-                         net (fo=65, unplaced)        1.007    41.011    proc_inst/A_PIPE/m1/m11/o_remainder0_carry__0_i_8__13[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    41.135 f  proc_inst/A_PIPE/m1/m11/o_remainder0_carry_i_2__11/O
-                         net (fo=9, unplaced)         0.490    41.625    proc_inst/rd_reg_m/o_remainder0_carry__2_8[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    41.749 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__12/O
-                         net (fo=1, unplaced)         0.639    42.388    proc_inst/A_PIPE/m1/m13/o_remainder1_carry__0_0[1]
+                                                      0.117    39.963 r  proc_inst/A_PIPE/m1/m12/o_remainder1_carry__0/CO[3]
+                         net (fo=66, unplaced)        1.007    40.970    proc_inst/A_PIPE/m1/m11/o_remainder0_carry__0_i_8__13[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    41.094 f  proc_inst/A_PIPE/m1/m11/o_remainder0_carry_i_2__11/O
+                         net (fo=9, unplaced)         0.490    41.584    proc_inst/rt_reg_x/o_remainder0_carry__2_8[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    41.708 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__12/O
+                         net (fo=1, unplaced)         0.639    42.347    proc_inst/A_PIPE/m1/m13/o_remainder1_carry__0_0[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    42.908 r  proc_inst/A_PIPE/m1/m13/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    42.917    proc_inst/A_PIPE/m1/m13/o_remainder1_carry_n_0
+                                                      0.520    42.867 r  proc_inst/A_PIPE/m1/m13/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    42.876    proc_inst/A_PIPE/m1/m13/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    43.034 r  proc_inst/A_PIPE/m1/m13/o_remainder1_carry__0/CO[3]
-                         net (fo=68, unplaced)        1.008    44.042    proc_inst/A_PIPE/m1/m12/o_remainder0_carry_i_5__11[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    44.166 f  proc_inst/A_PIPE/m1/m12/o_remainder0_carry_i_2__12/O
-                         net (fo=8, unplaced)         0.487    44.653    proc_inst/rd_reg_m/o_remainder0_carry__1_2[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    44.777 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__13/O
-                         net (fo=1, unplaced)         0.639    45.416    proc_inst/A_PIPE/m1/m14/o_remainder1_carry__0_0[1]
+                                                      0.117    42.993 r  proc_inst/A_PIPE/m1/m13/o_remainder1_carry__0/CO[3]
+                         net (fo=69, unplaced)        1.008    44.001    proc_inst/A_PIPE/m1/m12/o_remainder0_carry_i_5__11[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    44.125 f  proc_inst/A_PIPE/m1/m12/o_remainder0_carry_i_2__12/O
+                         net (fo=8, unplaced)         0.487    44.612    proc_inst/rt_reg_x/o_remainder0_carry__1_2[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    44.736 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__13/O
+                         net (fo=1, unplaced)         0.639    45.375    proc_inst/A_PIPE/m1/m14/o_remainder1_carry__0_0[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    45.936 r  proc_inst/A_PIPE/m1/m14/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    45.945    proc_inst/A_PIPE/m1/m14/o_remainder1_carry_n_0
+                                                      0.520    45.895 r  proc_inst/A_PIPE/m1/m14/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    45.904    proc_inst/A_PIPE/m1/m14/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    46.062 r  proc_inst/A_PIPE/m1/m14/o_remainder1_carry__0/CO[3]
-                         net (fo=57, unplaced)        1.004    47.066    proc_inst/A_PIPE/m1/m13/state[2]_i_26[0]
-                         LUT5 (Prop_lut5_I4_O)        0.124    47.190 f  proc_inst/A_PIPE/m1/m13/o_remainder0_carry_i_2__13/O
-                         net (fo=4, unplaced)         0.473    47.663    proc_inst/rd_reg_m/o_remainder1_carry__0_25[0]
-                         LUT6 (Prop_lut6_I1_O)        0.124    47.787 r  proc_inst/rd_reg_m/o_remainder1_carry_i_3__14/O
-                         net (fo=1, unplaced)         0.639    48.426    proc_inst/A_PIPE/m1/m15/o_remainder1_carry__0_0[1]
+                                                      0.117    46.021 r  proc_inst/A_PIPE/m1/m14/o_remainder1_carry__0/CO[3]
+                         net (fo=59, unplaced)        1.004    47.025    proc_inst/A_PIPE/m1/m13/CO[0]
+                         LUT5 (Prop_lut5_I4_O)        0.124    47.149 f  proc_inst/A_PIPE/m1/m13/o_remainder0_carry_i_2__13/O
+                         net (fo=4, unplaced)         0.473    47.622    proc_inst/rt_reg_x/o_remainder1_carry__0_24[0]
+                         LUT6 (Prop_lut6_I1_O)        0.124    47.746 r  proc_inst/rt_reg_x/o_remainder1_carry_i_3__14/O
+                         net (fo=1, unplaced)         0.639    48.385    proc_inst/A_PIPE/m1/m15/o_remainder1_carry__0_0[1]
                          CARRY4 (Prop_carry4_DI[1]_CO[3])
-                                                      0.520    48.946 r  proc_inst/A_PIPE/m1/m15/o_remainder1_carry/CO[3]
-                         net (fo=1, unplaced)         0.009    48.955    proc_inst/A_PIPE/m1/m15/o_remainder1_carry_n_0
+                                                      0.520    48.905 r  proc_inst/A_PIPE/m1/m15/o_remainder1_carry/CO[3]
+                         net (fo=1, unplaced)         0.009    48.914    proc_inst/A_PIPE/m1/m15/o_remainder1_carry_n_0
                          CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    49.072 r  proc_inst/A_PIPE/m1/m15/o_remainder1_carry__0/CO[3]
-                         net (fo=20, unplaced)        0.978    50.050    proc_inst/insn_reg_x/state[0]_i_12_0[0]
-                         LUT6 (Prop_lut6_I2_O)        0.124    50.174 f  proc_inst/insn_reg_x/state[2]_i_26/O
-                         net (fo=1, unplaced)         0.449    50.623    proc_inst/insn_reg_x/state[2]_i_26_n_0
-                         LUT6 (Prop_lut6_I5_O)        0.124    50.747 f  proc_inst/insn_reg_x/state[2]_i_12/O
-                         net (fo=1, unplaced)         0.449    51.196    proc_inst/insn_reg_x/state[2]_i_12_n_0
-                         LUT6 (Prop_lut6_I2_O)        0.124    51.320 f  proc_inst/insn_reg_x/state[2]_i_3__3/O
-                         net (fo=2, unplaced)         0.460    51.780    proc_inst/pc_reg_x/out_alu_A[2]
-                         LUT3 (Prop_lut3_I2_O)        0.116    51.896 f  proc_inst/pc_reg_x/state[2]_i_1__11/O
-                         net (fo=2, unplaced)         0.913    52.809    proc_inst/pc_reg_x/state_reg[0]_2[2]
-                         LUT6 (Prop_lut6_I0_O)        0.124    52.933 r  proc_inst/pc_reg_x/state[1]_i_2__3/O
-                         net (fo=2, unplaced)         0.913    53.846    proc_inst/pc_reg_x/state_reg[0]_0
-                         LUT6 (Prop_lut6_I0_O)        0.124    53.970 r  proc_inst/pc_reg_x/state[1]_i_1__11/O
-                         net (fo=1, unplaced)         0.000    53.970    proc_inst/nzp_reg_m/nzp_data_x_A_1
-                         FDRE                                         r  proc_inst/nzp_reg_m/state_reg[1]/D
+                                                      0.117    49.031 r  proc_inst/A_PIPE/m1/m15/o_remainder1_carry__0/CO[3]
+                         net (fo=20, unplaced)        0.978    50.009    proc_inst/rd_reg_w_B/state[0]_i_6__0_0[0]
+                         LUT3 (Prop_lut3_I2_O)        0.124    50.133 r  proc_inst/rd_reg_w_B/state[0]_i_18/O
+                         net (fo=1, unplaced)         0.449    50.582    proc_inst/insn_reg_x/temp16_remainder[0]
+                         LUT6 (Prop_lut6_I5_O)        0.124    50.706 r  proc_inst/insn_reg_x/state[0]_i_6__0/O
+                         net (fo=1, unplaced)         0.449    51.155    proc_inst/insn_reg_x/state[0]_i_6__0_n_0
+                         LUT6 (Prop_lut6_I3_O)        0.124    51.279 r  proc_inst/insn_reg_x/state[0]_i_2__4/O
+                         net (fo=3, unplaced)         0.437    51.716    proc_inst/execute_pc_plus_one_register_A/out_alu_A[0]
+                         LUT5 (Prop_lut5_I2_O)        0.150    51.866 f  proc_inst/execute_pc_plus_one_register_A/state[1]_i_5__6/O
+                         net (fo=1, unplaced)         0.902    52.768    proc_inst/execute_pc_plus_one_register_A/state[1]_i_5__6_n_0
+                         LUT6 (Prop_lut6_I3_O)        0.124    52.892 f  proc_inst/execute_pc_plus_one_register_A/state[1]_i_2__4/O
+                         net (fo=2, unplaced)         0.460    53.352    proc_inst/execute_pc_plus_one_register_A/state[1]_i_2__4_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124    53.476 r  proc_inst/execute_pc_plus_one_register_A/state[0]_i_1__33/O
+                         net (fo=1, unplaced)         0.000    53.476    proc_inst/nzp_reg_m/nzp_data_x_A[0]
+                         FDRE                                         r  proc_inst/nzp_reg_m/state_reg[0]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_processor_design_1_clk_wiz_0_0 rise edge)
@@ -450,16 +450,16 @@ Slack (MET) :             2.278ns  (required time - arrival time)
                                                      -5.378    54.481 r  mmcm0/mmcm_adv_inst/CLKOUT0
                          net (fo=1, unplaced)         0.760    55.241    mmcm0/clk_processor_design_1_clk_wiz_0_0
                          BUFG (Prop_bufg_I_O)         0.091    55.332 r  mmcm0/clkout1_buf/O
-                         net (fo=695, unplaced)       0.439    55.771    proc_inst/nzp_reg_m/clk_processor
-                         FDRE                                         r  proc_inst/nzp_reg_m/state_reg[1]/C
+                         net (fo=799, unplaced)       0.439    55.771    proc_inst/nzp_reg_m/clk_processor
+                         FDRE                                         r  proc_inst/nzp_reg_m/state_reg[0]/C
                          clock pessimism              0.531    56.301    
                          clock uncertainty           -0.097    56.205    
-                         FDRE (Setup_fdre_C_D)        0.044    56.249    proc_inst/nzp_reg_m/state_reg[1]
+                         FDRE (Setup_fdre_C_D)        0.044    56.249    proc_inst/nzp_reg_m/state_reg[0]
   -------------------------------------------------------------------
                          required time                         56.249    
-                         arrival time                         -53.970    
+                         arrival time                         -53.476    
   -------------------------------------------------------------------
-                         slack                                  2.278    
+                         slack                                  2.772    
 
 
 
@@ -467,16 +467,16 @@ Slack (MET) :             2.278ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.132ns  (arrival time - required time)
-  Source:                 proc_inst/o_dmem_towrite_reg_w/state_reg[0]/C
+Slack (MET) :             0.140ns  (arrival time - required time)
+  Source:                 fake_kbd_inst/op_d/state_reg/state_reg[0]/C
                             (rising edge-triggered cell FDRE clocked by clk_processor_design_1_clk_wiz_0_0  {rise@0.000ns fall@29.000ns period=58.000ns})
-  Destination:            timer/interval_reg/state_reg[0]/D
+  Destination:            fake_kbd_inst/op_d/state_reg/state_reg[0]/D
                             (rising edge-triggered cell FDRE clocked by clk_processor_design_1_clk_wiz_0_0  {rise@0.000ns fall@29.000ns period=58.000ns})
   Path Group:             clk_processor_design_1_clk_wiz_0_0
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_processor_design_1_clk_wiz_0_0 rise@0.000ns - clk_processor_design_1_clk_wiz_0_0 rise@0.000ns)
-  Data Path Delay:        0.376ns  (logic 0.245ns (65.144%)  route 0.131ns (34.856%))
-  Logic Levels:           1  (LUT4=1)
+  Data Path Delay:        0.384ns  (logic 0.245ns (63.855%)  route 0.139ns (36.145%))
+  Logic Levels:           1  (LUT3=1)
   Clock Path Skew:        0.145ns (DCD - SCD - CPR)
     Destination Clock Delay (DCD):    -1.062ns
     Source Clock Delay      (SCD):    -0.927ns
@@ -494,14 +494,14 @@ Slack (MET) :             0.132ns  (arrival time - required time)
                                                      -1.776    -1.404 r  mmcm0/mmcm_adv_inst/CLKOUT0
                          net (fo=1, unplaced)         0.337    -1.067    mmcm0/clk_processor_design_1_clk_wiz_0_0
                          BUFG (Prop_bufg_I_O)         0.026    -1.041 r  mmcm0/clkout1_buf/O
-                         net (fo=695, unplaced)       0.114    -0.927    proc_inst/o_dmem_towrite_reg_w/clk_processor
-                         FDRE                                         r  proc_inst/o_dmem_towrite_reg_w/state_reg[0]/C
+                         net (fo=799, unplaced)       0.114    -0.927    fake_kbd_inst/op_d/state_reg/clk_processor
+                         FDRE                                         r  fake_kbd_inst/op_d/state_reg/state_reg[0]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.147    -0.780 r  proc_inst/o_dmem_towrite_reg_w/state_reg[0]/Q
-                         net (fo=1, unplaced)         0.131    -0.649    proc_inst/o_dmem_towrite_reg_w_B/o_dmem_towrite_w_A[0]
-                         LUT4 (Prop_lut4_I3_O)        0.098    -0.551 r  proc_inst/o_dmem_towrite_reg_w_B/IDRAM_reg_0_0_i_34/O
-                         net (fo=4, unplaced)         0.000    -0.551    timer/interval_reg/dmem_in[0]
-                         FDRE                                         r  timer/interval_reg/state_reg[0]/D
+                         FDRE (Prop_fdre_C_Q)         0.147    -0.780 f  fake_kbd_inst/op_d/state_reg/state_reg[0]/Q
+                         net (fo=3, unplaced)         0.139    -0.641    fake_kbd_inst/op_d/state_reg/state_0[0]
+                         LUT3 (Prop_lut3_I2_O)        0.098    -0.543 r  fake_kbd_inst/op_d/state_reg/state[0]_i_1__40/O
+                         net (fo=1, unplaced)         0.000    -0.543    fake_kbd_inst/op_d/state_reg/next_state1
+                         FDRE                                         r  fake_kbd_inst/op_d/state_reg/state_reg[0]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_processor_design_1_clk_wiz_0_0 rise edge)
@@ -514,15 +514,15 @@ Slack (MET) :             0.132ns  (arrival time - required time)
                                                      -2.410    -1.705 r  mmcm0/mmcm_adv_inst/CLKOUT0
                          net (fo=1, unplaced)         0.355    -1.350    mmcm0/clk_processor_design_1_clk_wiz_0_0
                          BUFG (Prop_bufg_I_O)         0.029    -1.321 r  mmcm0/clkout1_buf/O
-                         net (fo=695, unplaced)       0.259    -1.062    timer/interval_reg/clk_processor
-                         FDRE                                         r  timer/interval_reg/state_reg[0]/C
+                         net (fo=799, unplaced)       0.259    -1.062    fake_kbd_inst/op_d/state_reg/clk_processor
+                         FDRE                                         r  fake_kbd_inst/op_d/state_reg/state_reg[0]/C
                          clock pessimism              0.280    -0.782    
-                         FDRE (Hold_fdre_C_D)         0.099    -0.683    timer/interval_reg/state_reg[0]
+                         FDRE (Hold_fdre_C_D)         0.099    -0.683    fake_kbd_inst/op_d/state_reg/state_reg[0]
   -------------------------------------------------------------------
                          required time                          0.683    
-                         arrival time                          -0.551    
+                         arrival time                          -0.543    
   -------------------------------------------------------------------
-                         slack                                  0.132    
+                         slack                                  0.140    
 
 
 
@@ -538,8 +538,8 @@ Sources:            { mmcm0/mmcm_adv_inst/CLKOUT0 }
 Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location  Pin
 Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            3.363         58.000      54.637               memory/memory/IDRAM_reg_0_2/CLKARDCLK
 Max Period        n/a     MMCME2_ADV/CLKOUT0  n/a            213.360       58.000      155.360              mmcm0/mmcm_adv_inst/CLKOUT0
-Low Pulse Width   Fast    SRL16E/CLK          n/a            0.980         29.000      28.020               proc_inst/nzp_we_reg_m_B/state_reg[0]_srl2/CLK
-High Pulse Width  Slow    SRL16E/CLK          n/a            0.980         29.000      28.020               proc_inst/nzp_we_reg_m_B/state_reg[0]_srl2/CLK
+Low Pulse Width   Fast    FDRE/C              n/a            0.500         29.000      28.500               proc_inst/alu_reg_m/state_reg[0]/C
+High Pulse Width  Slow    FDRE/C              n/a            0.500         29.000      28.500               proc_inst/alu_reg_m/state_reg[0]/C
 
 
 
@@ -793,7 +793,7 @@ Slack (MET) :             16.660ns  (required time - arrival time)
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.478    18.924 r  vga_cntrl_inst/svga_t_g/PIXEL_COUNT_reg[6]/Q
                          net (fo=16, unplaced)        0.795    19.719    vga_cntrl_inst/svga_t_g/pixel_count[6]
-                         LUT3 (Prop_lut3_I0_O)        0.295    20.014 r  vga_cntrl_inst/svga_t_g/VRAM_reg_0_i_12/O
+                         LUT3 (Prop_lut3_I0_O)        0.295    20.014 r  vga_cntrl_inst/svga_t_g/VRAM_reg_0_i_14/O
                          net (fo=8, unplaced)         0.800    20.814    memory/memory/vaddr[6]
                          RAMB36E1                                     r  memory/memory/VRAM_reg_0/ADDRBWRADDR[7]
   -------------------------------------------------------------------    -------------------
